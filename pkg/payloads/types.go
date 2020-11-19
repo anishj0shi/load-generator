@@ -129,7 +129,8 @@ type ExampleEvent struct {
 }
 
 type ExampleEventData struct {
-	Timestamp int64 `json:"timestamp"`
+	Timestamp int64  `json:"timestamp"`
+	UUID      string `json:"uuid"`
 }
 
 func parseErrorResponse(response *http.Response) error {

@@ -3,6 +3,7 @@ module github.com/anishj0shi/load-generator
 go 1.15
 
 require (
+	github.com/anishj0shi/inmemorydb-service v0.0.0-20201117204839-9552c8e6508c // indirect
 	github.com/google/go-cmp v0.4.0 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect

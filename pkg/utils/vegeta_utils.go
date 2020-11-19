@@ -36,12 +36,13 @@ func (v *VegetaEventTarget) getVegetaTarget() vegeta.Targeter {
 		t.Method = http.MethodPost
 		t.URL = v.url
 
+		uuid := uuid.New().String()
 		event := payloads.ExampleEvent{
 			EventType:        "bla.event",
 			EventTypeVersion: "v1",
-			EventID:          uuid.New().String(),
+			EventID:          uuid,
 			EventTime:        time.Now().UTC(),
-			Data:             payloads.ExampleEventData{Timestamp: time.Now().Unix()},
+			Data:             payloads.ExampleEventData{Timestamp: time.Now().Unix(), UUID: uuid},
 		}
 
 		jsonStr, err := json.Marshal(event)
