@@ -22,7 +22,7 @@ func NewVegetaClient(client *http.Client, url string) *VegetaEventTarget {
 	}
 }
 
-func (v *VegetaEventTarget) Attack(rate vegeta.Rate, duration time.Duration) <-chan *vegeta.Result {
+func (v *VegetaEventTarget) Attack(rate vegeta.Pacer, duration time.Duration) <-chan *vegeta.Result {
 	attacker := v.getVegetaAttacker()
 	return attacker.Attack(v.getVegetaTarget(), rate, duration, fmt.Sprint("Attack-%d", time.Now().Unix()))
 }
