@@ -42,7 +42,7 @@ func (v *VegetaEventTarget) getVegetaTarget() vegeta.Targeter {
 			EventTypeVersion: "v1",
 			EventID:          uuid,
 			EventTime:        time.Now().UTC(),
-			Data:             payloads.ExampleEventData{Timestamp: time.Now().Unix(), UUID: uuid},
+			Data:             payloads.ExampleEventData{Timestamp: time.Now().UnixNano(), UUID: uuid},
 		}
 
 		jsonStr, err := json.Marshal(event)
