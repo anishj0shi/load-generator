@@ -16,7 +16,7 @@ import (
 
 func main() {
 	token := flag.String("token", "", "Connectivity Token")
-	//frequency := flag.Int("frequency", "80", "Number of requests per second")
+	frequency := flag.Int("frequency", 90, "Number of requests per second")
 	flag.Parse()
 	if *token == "" {
 		log.Error("Required parameter \"token\" is missing")
@@ -29,22 +29,23 @@ func main() {
 	vegetaClient := utils.NewVegetaClient(gwClient.GetHTPClient(), gwClient.GetEventingEndpoint())
 	metrics := &vegeta.Metrics{}
 	pacer := vegeta.SinePacer{
-		Period: 2 * time.Minute,
+		Period: 2 * time.Hour,
 		Mean: vegeta.Rate{
-			Freq: 20,
+			Freq: *frequency,
 			Per:  time.Second,
 		},
 		Amp: vegeta.Rate{
-			Freq: 5,
+			Freq: 30,
 			Per:  time.Second,
 		},
 		StartAt: 0,
 	}
+	log.Info("attacking rate : %s", pacer.String())
 	//vegeta.Rate{
 	//	Freq: 20,
 	//	Per:  time.Second,
 	//}
-	for res := range vegetaClient.Attack(pacer, 60*time.Second) {
+	for res := range vegetaClient.Attack(pacer, 6*time.Hour) {
 		metrics.Add(res)
 	}
 	metrics.Close()
